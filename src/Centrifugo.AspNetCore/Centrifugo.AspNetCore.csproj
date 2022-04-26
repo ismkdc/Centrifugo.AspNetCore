@@ -10,7 +10,7 @@
         <PackageReleaseNotes>updated description</PackageReleaseNotes>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageLicenseUrl>https://github.com/ismkdc/Centrifugo.AspNetCore/blob/main/LICENSE</PackageLicenseUrl>
-        <PackageVersion>1.0.0</PackageVersion>
+        <PackageVersion>1.0.5</PackageVersion>
         <PackageReadmeFile>readme.md</PackageReadmeFile>
     </PropertyGroup>
 
