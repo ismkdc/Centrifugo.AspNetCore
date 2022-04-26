@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Centrifugo.AspNetCore", "src\Centrifugo.AspNetCore\Centrifugo.AspNetCore.csproj", "{95BB64F0-640E-4F56-AE6B-CCBBF97B4AFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Centrifugo.AspNetCore.Sample", "src\Centrifugo.AspNetCore.Sample\Centrifugo.AspNetCore.Sample.csproj", "{08F9554E-9A88-4AF9-B5FC-BC07E2C24F03}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{95BB64F0-640E-4F56-AE6B-CCBBF97B4AFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95BB64F0-640E-4F56-AE6B-CCBBF97B4AFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95BB64F0-640E-4F56-AE6B-CCBBF97B4AFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95BB64F0-640E-4F56-AE6B-CCBBF97B4AFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08F9554E-9A88-4AF9-B5FC-BC07E2C24F03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08F9554E-9A88-4AF9-B5FC-BC07E2C24F03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08F9554E-9A88-4AF9-B5FC-BC07E2C24F03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08F9554E-9A88-4AF9-B5FC-BC07E2C24F03}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
