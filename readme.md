@@ -3,20 +3,23 @@ Nuget package: https://www.nuget.org/packages/Centrifugo.AspNetCore/ \
 Sample project: https://github.com/ismkdc/Centrifugo.AspNetCore/tree/main/src/Centrifugo.AspNetCore.Sample
 
 Example: 
-<pre>
+
+```cs
 
 1-) Register to IOC
 
-// ToDo: Add your own configuration
-var centrifugoConfig = new CentrifugoOptions
+public void ConfigureServices(IServiceCollection services)
 {
-    Url = "http://localhost:8000/api",
-    ApiKey = "1c975adb-e03d-4ebe-9bfb-xxxxxxxxx"
-};
+    // ToDo: Add your own configuration
+    var centrifugoConfig = new CentrifugoOptions
+    {
+        Url = "http://localhost:8000/api",
+        ApiKey = "1c975adb-e03d-4ebe-9bfb-xxxxxxxxx"
+    };
 
-builder.Services.AddCentrifugoClient(centrifugoConfig);
+    services.AddCentrifugoClient(centrifugoConfig);
+}
 
----------------------
 
 2-) Use it! :)
 
@@ -54,4 +57,4 @@ public class ExampleService
             });
     }
 }
-</pre>
+```
