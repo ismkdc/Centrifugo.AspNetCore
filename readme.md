@@ -8,7 +8,7 @@ Method list
 
 // Publish command allows publishing data into a channel.
 Task<Response<EmptyResponse>> Publish(Publish req);
-Task<Response<EmptyResponse>> PublishSimple(string channel,object data);
+Task<Response<EmptyResponse>> PublishSimple(string channel, object data);
 
 // Similar to publish but allows to send the same data into many channels.
 Task<Response<EmptyResponse>> Broadcast(Broadcast req);
