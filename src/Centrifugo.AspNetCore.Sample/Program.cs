@@ -1,7 +1,6 @@
 using Centrifugo.AspNetCore.Abstractions;
 using Centrifugo.AspNetCore.Configuration;
 using Centrifugo.AspNetCore.Extensions;
-using Centrifugo.AspNetCore.Models.Request;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,20 +18,12 @@ var app = builder.Build();
 
 app.MapGet("/info", async ([FromServices] ICentrifugoClient centrifugoClient) => await centrifugoClient.Info());
 
-app.MapGet("/publish", async ([FromServices] ICentrifugoClient centrifugoClient) => await centrifugoClient.Publish(
-    new Publish()
-    {
-        Channel = "channel",
-        Data = new { value = 1 }
-    }));
+app.MapGet("/publish",
+    async ([FromServices] ICentrifugoClient centrifugoClient) =>
+        await centrifugoClient.PublishSimple("channel", new { data = "message" }));
 
-app.MapGet("/broadcast", async ([FromServices] ICentrifugoClient centrifugoClient) => await centrifugoClient.Broadcast(
-    new Broadcast()
-    {
-        Channels = new[] { "channel", "channel2" },
-        Data = new { value = 1 }
-    }));
-
-app.MapGet("/channels", async ([FromServices] ICentrifugoClient centrifugoClient) => await centrifugoClient.Channels());
+app.MapGet("/broadcast",
+    async ([FromServices] ICentrifugoClient centrifugoClient) =>
+        await centrifugoClient.BroadcastSimple(new { data = "message" }, "channel1", "channel2"));
 
 app.Run();

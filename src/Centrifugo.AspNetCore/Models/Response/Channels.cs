@@ -9,11 +9,17 @@ namespace Centrifugo.AspNetCore.Models.Response
 
     public class ChannelsInfo
     {
-        public Dictionary<string, ClientInfo> Channels { get; set; }
+        /// <summary>
+        /// Key value pairs of channel name and channel info.
+        /// </summary>
+        public Dictionary<string, ChannelClientInfo> Channels { get; set; }
     }
 
-    public class ClientInfo
+    public class ChannelClientInfo
     {
+        /// <summary>
+        /// Total number of connections currently subscribed to a channel
+        /// </summary>
         public int Num_Clients { get; set; }
     }
 }
