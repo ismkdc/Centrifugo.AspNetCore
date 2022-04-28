@@ -1,8 +1,10 @@
-﻿using Centrifugo.AspNetCore.Models.Abstraction;
+﻿using Centrifugo.AspNetCore.Attributes;
+using Centrifugo.AspNetCore.Models.Abstraction;
 
 namespace Centrifugo.AspNetCore.Models.Request
 {
-    public class Publish : IRequest
+    [CentrifugoName("Publish")]
+    public class PublishParams : IRequestParams
     {
         /// <summary>
         ///     Name of channel to publish

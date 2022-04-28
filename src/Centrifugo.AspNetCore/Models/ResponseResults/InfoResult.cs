@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using Centrifugo.AspNetCore.Models.Abstraction;
 
 namespace Centrifugo.AspNetCore.Models.Response
 {
-    public class Info : IResponse
+    public class InfoResult : IResponseResult
     {
         /// <summary>
         /// List of nodes
@@ -21,17 +22,20 @@ namespace Centrifugo.AspNetCore.Models.Response
         /// <summary>
         /// Channel count
         /// </summary>
-        public int Num_Channels { get; set; }
+        [JsonPropertyName("Num_Channels")]
+        public int NumChannels { get; set; }
 
         /// <summary>
         /// Client count
         /// </summary>
-        public int Num_Clients { get; set; }
+        [JsonPropertyName("Num_Clients")]
+        public int NumClients { get; set; }
 
         /// <summary>
         /// User count
         /// </summary>
-        public int Num_Users { get; set; }
+        [JsonPropertyName("Num_Users")]
+        public int NumUsers { get; set; }
 
         /// <summary>
         /// Uid of the node

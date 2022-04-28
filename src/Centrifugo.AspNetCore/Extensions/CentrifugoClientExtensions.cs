@@ -2,12 +2,7 @@
 using Centrifugo.AspNetCore.Abstractions;
 using Centrifugo.AspNetCore.Models.Common;
 using Centrifugo.AspNetCore.Models.Request;
-using ChannelsResponse = Centrifugo.AspNetCore.Models.Response.Channels;
-using InfoResponse = Centrifugo.AspNetCore.Models.Response.Info;
-using PresenceResponse = Centrifugo.AspNetCore.Models.Response.Presence;
-using Presence_StatsResponse = Centrifugo.AspNetCore.Models.Response.Presence_Stats;
-using HistoryResponse = Centrifugo.AspNetCore.Models.Response.History;
-using EmptyResponse = Centrifugo.AspNetCore.Models.Response.Empty;
+using Centrifugo.AspNetCore.Models.Response;
 
 namespace Centrifugo.AspNetCore.Extensions
 {
@@ -16,10 +11,10 @@ namespace Centrifugo.AspNetCore.Extensions
         /// <summary>
         ///     See <see cref="ICentrifugoClient.Publish" />.
         /// </summary>
-        public static Task<Response<EmptyResponse>> PublishSimple(this ICentrifugoClient client, string channel,
-            object data)
+        public static Task<Response<EmptyResult>> Publish(this ICentrifugoClient client,
+            object data, string channel)
         {
-            var request = new Publish
+            var request = new PublishParams
             {
                 Channel = channel,
                 Data = data
@@ -31,10 +26,10 @@ namespace Centrifugo.AspNetCore.Extensions
         /// <summary>
         ///     See <see cref="ICentrifugoClient.Broadcast" />.
         /// </summary>
-        public static Task<Response<EmptyResponse>> BroadcastSimple(this ICentrifugoClient client, object data,
+        public static Task<Response<EmptyResult>> Broadcast(this ICentrifugoClient client, object data,
             params string[] channels)
         {
-            var request = new Broadcast
+            var request = new BroadcastParams
             {
                 Data = data,
                 Channels = channels
@@ -46,10 +41,10 @@ namespace Centrifugo.AspNetCore.Extensions
         /// <summary>
         ///     See <see cref="ICentrifugoClient.Subscribe" />.
         /// </summary>
-        public static Task<Response<EmptyResponse>> SubscribeSimple(this ICentrifugoClient client, string user,
+        public static Task<Response<EmptyResult>> Subscribe(this ICentrifugoClient client, string user,
             string channel)
         {
-            var request = new Subscribe
+            var request = new SubscribeParams
             {
                 User = user,
                 Channel = channel
@@ -61,10 +56,10 @@ namespace Centrifugo.AspNetCore.Extensions
         /// <summary>
         ///     See <see cref="ICentrifugoClient.Subscribe" />.
         /// </summary>
-        public static Task<Response<EmptyResponse>> UnSubscribeSimple(this ICentrifugoClient client, string user,
+        public static Task<Response<EmptyResult>> UnSubscribe(this ICentrifugoClient client, string user,
             string channel)
         {
-            var request = new UnSubscribe
+            var request = new UnSubscribeParams
             {
                 User = user,
                 Channel = channel
@@ -76,9 +71,9 @@ namespace Centrifugo.AspNetCore.Extensions
         /// <summary>
         ///     See <see cref="ICentrifugoClient.Disconnect" />.
         /// </summary>
-        public static Task<Response<EmptyResponse>> DisconnectSimple(this ICentrifugoClient client, string user)
+        public static Task<Response<EmptyResult>> Disconnect(this ICentrifugoClient client, string user)
         {
-            var request = new Disconnect
+            var request = new DisconnectParams
             {
                 User = user
             };
@@ -89,9 +84,9 @@ namespace Centrifugo.AspNetCore.Extensions
         /// <summary>
         ///     See <see cref="ICentrifugoClient.Refresh" />.
         /// </summary>
-        public static Task<Response<EmptyResponse>> RefreshSimple(this ICentrifugoClient client, string user)
+        public static Task<Response<EmptyResult>> Refresh(this ICentrifugoClient client, string user)
         {
-            var request = new Refresh
+            var request = new RefreshParams
             {
                 User = user
             };
@@ -102,36 +97,36 @@ namespace Centrifugo.AspNetCore.Extensions
         /// <summary>
         ///     See <see cref="ICentrifugoClient.Presence" />.
         /// </summary>
-        public static Task<Response<PresenceResponse>> PresenceSimple(this ICentrifugoClient client, string channel)
+        public static Task<Response<PresenceResult>> Presence(this ICentrifugoClient client, string channel)
         {
-            var request = new Presence
+            var request = new PresenceParams
             {
-                Channel = channel
+                ChannelParams = channel
             };
 
             return client.Presence(request);
         }
 
         /// <summary>
-        ///     See <see cref="ICentrifugoClient.Presence_Stats" />.
+        ///     See <see cref="ICentrifugoClient.PresenceStats" />.
         /// </summary>
-        public static Task<Response<Presence_StatsResponse>> Presence_StatsSimple(this ICentrifugoClient client,
+        public static Task<Response<Models.Response.PresenceStatsResult>> PresenceStats(this ICentrifugoClient client,
             string channel)
         {
-            var request = new Presence_Stats
+            var request = new PresenceStatsParams
             {
                 Channel = channel
             };
 
-            return client.Presence_Stats(request);
+            return client.PresenceStats(request);
         }
 
         /// <summary>
         ///     See <see cref="ICentrifugoClient.History" />.
         /// </summary>
-        public static Task<Response<HistoryResponse>> HistorySimple(this ICentrifugoClient client, string channel)
+        public static Task<Response<HistoryResult>> History(this ICentrifugoClient client, string channel)
         {
-            var request = new History
+            var request = new HistoryParams
             {
                 Channel = channel
             };
@@ -140,16 +135,16 @@ namespace Centrifugo.AspNetCore.Extensions
         }
 
         /// <summary>
-        ///     See <see cref="ICentrifugoClient.History_Remove" />.
+        ///     See <see cref="ICentrifugoClient.HistoryRemove" />.
         /// </summary>
-        public static Task<Response<EmptyResponse>> History_RemoveSimple(this ICentrifugoClient client, string channel)
+        public static Task<Response<EmptyResult>> HistoryRemove(this ICentrifugoClient client, string channel)
         {
-            var request = new History_Remove
+            var request = new HistoryRemoveParams
             {
                 Channel = channel
             };
 
-            return client.History_Remove(request);
+            return client.HistoryRemove(request);
         }
     }
 }

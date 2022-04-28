@@ -1,8 +1,10 @@
-﻿using Centrifugo.AspNetCore.Models.Abstraction;
+﻿using Centrifugo.AspNetCore.Attributes;
+using Centrifugo.AspNetCore.Models.Abstraction;
 
 namespace Centrifugo.AspNetCore.Models.Request
 {
-    public class History : IRequest
+    [CentrifugoName("History")]
+    public class HistoryParams : IRequestParams
     {
         /// <summary>
         ///     Name of channel to call history from

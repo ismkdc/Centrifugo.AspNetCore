@@ -1,8 +1,10 @@
-﻿using Centrifugo.AspNetCore.Models.Abstraction;
+﻿using Centrifugo.AspNetCore.Attributes;
+using Centrifugo.AspNetCore.Models.Abstraction;
 
 namespace Centrifugo.AspNetCore.Models.Request
 {
-    public class Disconnect : IRequest
+    [CentrifugoName("Disconnect")]
+    public class DisconnectParams : IRequestParams
     {
         /// <summary>
         ///     User ID to disconnect

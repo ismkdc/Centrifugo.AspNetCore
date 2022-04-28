@@ -1,8 +1,10 @@
-﻿using Centrifugo.AspNetCore.Models.Abstraction;
+﻿using Centrifugo.AspNetCore.Attributes;
+using Centrifugo.AspNetCore.Models.Abstraction;
 
 namespace Centrifugo.AspNetCore.Models.Request
 {
-    public class Refresh : IRequest
+    [CentrifugoName("Refresh")]
+    public class RefreshParams : IRequestParams
     {
         /// <summary>
         ///     User ID to refresh

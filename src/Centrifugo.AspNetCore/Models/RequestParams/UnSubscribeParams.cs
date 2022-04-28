@@ -1,8 +1,10 @@
-﻿using Centrifugo.AspNetCore.Models.Abstraction;
+﻿using Centrifugo.AspNetCore.Attributes;
+using Centrifugo.AspNetCore.Models.Abstraction;
 
 namespace Centrifugo.AspNetCore.Models.Request
 {
-    public class UnSubscribe : IRequest
+    [CentrifugoName("UnSubscribe")]
+    public class UnSubscribeParams : IRequestParams
     {
         /// <summary>
         ///     User ID to unsubscribe

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Reflection;
+using Centrifugo.AspNetCore.Attributes;
 using Centrifugo.AspNetCore.Models.Abstraction;
 
 namespace Centrifugo.AspNetCore.Models.Common
 {
-    public class Request<T> where T : IRequest, new()
+    internal class Request<T> where T : IRequestParams, new()
     {
         public Request()
         {
@@ -15,7 +17,8 @@ namespace Centrifugo.AspNetCore.Models.Common
             Params = parameters ?? throw new ArgumentNullException(nameof(parameters));
         }
 
-        public string Method => typeof(T).Name;
+        public string Method => typeof(T).GetCustomAttribute<CentrifugoNameAttribute>()?.Name;
+
         public T Params { get; set; }
     }
 }

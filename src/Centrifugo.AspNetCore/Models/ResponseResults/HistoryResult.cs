@@ -3,7 +3,7 @@ using Centrifugo.AspNetCore.Models.Abstraction;
 
 namespace Centrifugo.AspNetCore.Models.Response
 {
-    public class History : IResponse
+    public class HistoryResult : IResponseResult
     {
         /// <summary>
         /// Stream epoch

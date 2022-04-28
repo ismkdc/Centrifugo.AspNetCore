@@ -1,6 +1,6 @@
 ﻿namespace Centrifugo.AspNetCore.Models.Abstraction
 {
-    public interface IRequest
+    public interface IRequestParams
     {
     }
 }

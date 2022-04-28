@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using Centrifugo.AspNetCore.Attributes;
 using Centrifugo.AspNetCore.Models.Abstraction;
 
 namespace Centrifugo.AspNetCore.Models.Request
 {
-    public class Broadcast : IRequest
+    [CentrifugoName("Broadcast")]
+    public class BroadcastParams : IRequestParams
     {
         /// <summary>
         ///     List of channels to publish data to

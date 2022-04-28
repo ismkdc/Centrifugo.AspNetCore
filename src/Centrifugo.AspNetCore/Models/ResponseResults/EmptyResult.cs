@@ -2,7 +2,7 @@
 
 namespace Centrifugo.AspNetCore.Models.Response
 {
-    public class Empty : IResponse
+    public class EmptyResult : IResponseResult
     {
     }
 }

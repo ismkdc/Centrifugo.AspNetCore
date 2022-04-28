@@ -1,8 +1,10 @@
-﻿using Centrifugo.AspNetCore.Models.Abstraction;
+﻿using Centrifugo.AspNetCore.Attributes;
+using Centrifugo.AspNetCore.Models.Abstraction;
 
 namespace Centrifugo.AspNetCore.Models.Request
 {
-    public class History_Remove : IRequest
+    [CentrifugoName("History_Remove")]
+    public class HistoryRemoveParams : IRequestParams
     {
         /// <summary>
         ///     Name of channel to remove history

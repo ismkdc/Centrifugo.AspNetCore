@@ -3,11 +3,11 @@ using Centrifugo.AspNetCore.Models.Abstraction;
 
 namespace Centrifugo.AspNetCore.Models.Response
 {
-    public class Presence : PresenceInfo, IResponse
+    public class PresenceResult : PresenceInfo, IResponseResult
     {
     }
 
-    public class PresenceInfo : IResponse
+    public class PresenceInfo : IResponseResult
     {
         /// <summary>
         /// Offset of publication in history stream
@@ -15,7 +15,7 @@ namespace Centrifugo.AspNetCore.Models.Response
         public Dictionary<string, PresenceClientInfo> Presence { get; set; }
     }
 
-    public class PresenceClientInfo : IResponse
+    public class PresenceClientInfo : IResponseResult
     {
         /// <summary>
         /// Client ID

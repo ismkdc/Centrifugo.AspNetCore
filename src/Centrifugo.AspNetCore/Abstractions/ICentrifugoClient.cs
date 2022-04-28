@@ -1,12 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Centrifugo.AspNetCore.Models.Common;
 using Centrifugo.AspNetCore.Models.Request;
-using ChannelsResponse = Centrifugo.AspNetCore.Models.Response.Channels;
-using InfoResponse = Centrifugo.AspNetCore.Models.Response.Info;
-using PresenceResponse = Centrifugo.AspNetCore.Models.Response.Presence;
-using Presence_StatsResponse = Centrifugo.AspNetCore.Models.Response.Presence_Stats;
-using HistoryResponse = Centrifugo.AspNetCore.Models.Response.History;
-using EmptyResponse = Centrifugo.AspNetCore.Models.Response.Empty;
+using Centrifugo.AspNetCore.Models.Response;
 
 
 namespace Centrifugo.AspNetCore.Abstractions
@@ -16,86 +11,86 @@ namespace Centrifugo.AspNetCore.Abstractions
         /// <summary>
         ///     Publish command allows publishing data into a channel.
         /// </summary>
-        /// <param name="req"></param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
-        public Task<Response<EmptyResponse>> Publish(Publish req);
+        public Task<Response<EmptyResult>> Publish(PublishParams parameters);
 
         /// <summary>
         ///     Similar to publish but allows to send the same data into many channels.
         /// </summary>
-        /// <param name="req"></param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
-        public Task<Response<EmptyResponse>> Broadcast(Broadcast req);
+        public Task<Response<EmptyResult>> Broadcast(BroadcastParams parameters);
 
         /// <summary>
         ///     Allows subscribing user to a channel.
         /// </summary>
-        /// <param name="req"></param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
-        public Task<Response<EmptyResponse>> Subscribe(Subscribe req);
+        public Task<Response<EmptyResult>> Subscribe(SubscribeParams parameters);
 
         /// <summary>
         ///     Allows unsubscribing user from a channel.
         /// </summary>
-        /// <param name="req"></param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
-        public Task<Response<EmptyResponse>> UnSubscribe(UnSubscribe req);
+        public Task<Response<EmptyResult>> UnSubscribe(UnSubscribeParams parameters);
 
         /// <summary>
         ///     Allows disconnecting a user by ID.
         /// </summary>
-        /// <param name="req"></param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
-        public Task<Response<EmptyResponse>> Disconnect(Disconnect req);
+        public Task<Response<EmptyResult>> Disconnect(DisconnectParams parameters);
 
         /// <summary>
         ///     Allows refreshing user connection (mostly useful when unidirectional transports are used).
         /// </summary>
-        /// <param name="req"></param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
-        public Task<Response<EmptyResponse>> Refresh(Refresh req);
+        public Task<Response<EmptyResult>> Refresh(RefreshParams parameters);
 
         /// <summary>
         ///     (Presence in channels is not enabled by default) Allows getting channel online presence information.
         /// </summary>
-        /// <param name="req"></param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
-        public Task<Response<PresenceResponse>> Presence(Presence req);
+        public Task<Response<PresenceResult>> Presence(PresenceParams parameters);
 
         /// <summary>
         ///     (Presence in channels is not enabled by default) Allows getting short channel presence information - number of
         ///     clients and number of unique users (based on user ID).
         /// </summary>
-        /// <param name="req"></param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
-        public Task<Response<Presence_StatsResponse>> Presence_Stats(Presence_Stats req);
+        public Task<Response<Models.Response.PresenceStatsResult>> PresenceStats(PresenceStatsParams parameters);
 
         /// <summary>
         ///     (History in channels is not enabled by default) Allows getting channel history information (list of last messages
         ///     published into the channel)
         /// </summary>
-        /// <param name="req"></param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
-        public Task<Response<HistoryResponse>> History(History req);
+        public Task<Response<HistoryResult>> History(HistoryParams parameters);
 
         /// <summary>
         ///     (History in channels is not enabled by default) Allows removing publications in channel history. Current top stream
         ///     position meta data kept untouched to avoid client disconnects due to insufficient state.
         /// </summary>
-        /// <param name="req"></param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
-        public Task<Response<EmptyResponse>> History_Remove(History_Remove req);
+        public Task<Response<EmptyResult>> HistoryRemove(HistoryRemoveParams parameters);
 
         /// <summary>
         ///     Return active channels (with one or more active subscribers in it).
         /// </summary>
         /// <returns></returns>
-        public Task<Response<ChannelsResponse>> Channels();
+        public Task<Response<ChannelsResult>> Channels();
 
         /// <summary>
         ///     Allows getting information about running Centrifugo nodes.
         /// </summary>
         /// <returns></returns>
-        public Task<Response<InfoResponse>> Info();
+        public Task<Response<InfoResult>> Info();
     }
 }

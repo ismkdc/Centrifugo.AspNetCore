@@ -3,14 +3,10 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Centrifugo.AspNetCore.Abstractions;
 using Centrifugo.AspNetCore.Extensions;
+using Centrifugo.AspNetCore.Models.Abstraction;
 using Centrifugo.AspNetCore.Models.Common;
 using Centrifugo.AspNetCore.Models.Request;
-using ChannelsResponse = Centrifugo.AspNetCore.Models.Response.Channels;
-using InfoResponse = Centrifugo.AspNetCore.Models.Response.Info;
-using PresenceResponse = Centrifugo.AspNetCore.Models.Response.Presence;
-using Presence_StatsResponse = Centrifugo.AspNetCore.Models.Response.Presence_Stats;
-using HistoryResponse = Centrifugo.AspNetCore.Models.Response.History;
-using EmptyResponse = Centrifugo.AspNetCore.Models.Response.Empty;
+using Centrifugo.AspNetCore.Models.Response;
 
 namespace Centrifugo.AspNetCore.Implementations
 {
@@ -23,97 +19,51 @@ namespace Centrifugo.AspNetCore.Implementations
             _httpClient = httpClientFactory.CreateClient(ServiceCollectionExtensions.NamedClientName);
         }
 
-        public async Task<Response<EmptyResponse>> Publish(Publish req)
+        public  Task<Response<EmptyResult>> Publish(PublishParams parameters)
+            => SendRequest<PublishParams, EmptyResult>(parameters);
+
+        public  Task<Response<EmptyResult>> Broadcast(BroadcastParams parameters)
+            => SendRequest<BroadcastParams, EmptyResult>(parameters);
+
+        public  Task<Response<EmptyResult>> Subscribe(SubscribeParams parameters)
+            => SendRequest<SubscribeParams, EmptyResult>(parameters);
+
+        public  Task<Response<EmptyResult>> UnSubscribe(UnSubscribeParams parameters)
+            => SendRequest<UnSubscribeParams, EmptyResult>(parameters);
+
+        public  Task<Response<EmptyResult>> Disconnect(DisconnectParams parameters)
+            => SendRequest<DisconnectParams, EmptyResult>(parameters);
+
+        public Task<Response<EmptyResult>> Refresh(RefreshParams parameters)
+            => SendRequest<RefreshParams, EmptyResult>(parameters);
+
+        public Task<Response<PresenceResult>> Presence(PresenceParams parameters)
+            => SendRequest<PresenceParams, PresenceResult>(parameters);
+
+        public Task<Response<PresenceStatsResult>> PresenceStats(PresenceStatsParams parameters)
+            => SendRequest<PresenceStatsParams, PresenceStatsResult>(parameters);
+
+        public Task<Response<HistoryResult>> History(HistoryParams parameters)
+            => SendRequest<HistoryParams, HistoryResult>(parameters);
+
+        public Task<Response<EmptyResult>> HistoryRemove(HistoryRemoveParams parameters)
+            => SendRequest<HistoryRemoveParams, EmptyResult>(parameters);
+
+        public Task<Response<ChannelsResult>> Channels()
+            => SendRequest<ChannelsParams, ChannelsResult>(new ChannelsParams());
+
+        public Task<Response<InfoResult>> Info()
+            => SendRequest<InfoParams, InfoResult>(new InfoParams());
+
+        public async Task<Response<TRes>> SendRequest<TReq, TRes>(TReq req) where TReq : IRequestParams, new()
+            where TRes : IResponseResult
         {
-            var result = await SendRequest(new Request<Publish>(req));
-
-            return await result.ReadFromJsonAsync<Response<EmptyResponse>>();
-        }
-
-        public async Task<Response<EmptyResponse>> Broadcast(Broadcast req)
-        {
-            var result = await SendRequest(new Request<Broadcast>(req));
-
-            return await result.ReadFromJsonAsync<Response<EmptyResponse>>();
-        }
-
-        public async Task<Response<EmptyResponse>> Subscribe(Subscribe req)
-        {
-            var result = await SendRequest(new Request<Subscribe>(req));
-
-            return await result.ReadFromJsonAsync<Response<EmptyResponse>>();
-        }
-
-        public async Task<Response<EmptyResponse>> UnSubscribe(UnSubscribe req)
-        {
-            var result = await SendRequest(new Request<UnSubscribe>(req));
-
-            return await result.ReadFromJsonAsync<Response<EmptyResponse>>();
-        }
-
-        public async Task<Response<EmptyResponse>> Disconnect(Disconnect req)
-        {
-            var result = await SendRequest(new Request<Disconnect>(req));
-
-            return await result.ReadFromJsonAsync<Response<EmptyResponse>>();
-        }
-
-        public async Task<Response<EmptyResponse>> Refresh(Refresh req)
-        {
-            var result = await SendRequest(new Request<Refresh>(req));
-
-            return await result.ReadFromJsonAsync<Response<EmptyResponse>>();
-        }
-
-        public async Task<Response<PresenceResponse>> Presence(Presence req)
-        {
-            var result = await SendRequest(new Request<Presence>(req));
-
-            return await result.ReadFromJsonAsync<Response<PresenceResponse>>();
-        }
-
-        public async Task<Response<Presence_StatsResponse>> Presence_Stats(Presence_Stats req)
-        {
-            var result = await SendRequest(new Request<Presence_Stats>(req));
-
-            return await result.ReadFromJsonAsync<Response<Presence_StatsResponse>>();
-        }
-
-        public async Task<Response<HistoryResponse>> History(History req)
-        {
-            var result = await SendRequest(new Request<History>(req));
-
-            return await result.ReadFromJsonAsync<Response<HistoryResponse>>();
-        }
-
-        public async Task<Response<EmptyResponse>> History_Remove(History_Remove req)
-        {
-            var result = await SendRequest(new Request<History_Remove>(req));
-
-            return await result.ReadFromJsonAsync<Response<EmptyResponse>>();
-        }
-
-        public async Task<Response<ChannelsResponse>> Channels()
-        {
-            var result = await SendRequest(new Request<Channels>());
-
-            return await result.ReadFromJsonAsync<Response<ChannelsResponse>>();
-        }
-
-        public async Task<Response<InfoResponse>> Info()
-        {
-            var result = await SendRequest(new Request<Info>());
-
-            return await result.ReadFromJsonAsync<Response<InfoResponse>>();
-        }
-
-        private async Task<HttpContent> SendRequest<T>(T req)
-        {
-            var result = await _httpClient.PostAsJsonAsync("", req);
+            var body = new Request<TReq>(req);
+            var result = await _httpClient.PostAsJsonAsync("", body);
 
             result.EnsureSuccessStatusCode();
 
-            return result.Content;
+            return await result.Content.ReadFromJsonAsync<Response<TRes>>();
         }
     }
 }
