@@ -35,16 +35,16 @@ Task<Response<PresenceResponse>> Presence(Presence req);
 Task<Response<PresenceResponse>> Presence(string channel);
 
 // (Presence in channels is not enabled by default) Allows getting short channel presence information - number of clients and number of unique users (based on user ID). 
-Task<Response<Presence_StatsResponse>> Presence_Stats(Presence_Stats req);
-Task<Response<Presence_StatsResponse>> Presence_Stats(string channel);
+Task<Response<Presence_StatsResponse>> PresenceStats(Presence_Stats req);
+Task<Response<Presence_StatsResponse>> PresenceStats(string channel);
 
 // (History in channels is not enabled by default) Allows getting channel history information (list of last messages published into the channel)
 Task<Response<HistoryResponse>> History(History req);
 Task<Response<HistoryResponse>> History(string channel);
 
 // (History in channels is not enabled by default) Allows removing publications in channel history. Current top stream position meta data kept untouched to avoid client disconnects due to insufficient state.
-Task<Response<EmptyResponse>> History_Remove(History_Remove req);
-Task<Response<EmptyResponse>> History_Remove(string channel);
+Task<Response<EmptyResponse>> HistoryRemove(History_Remove req);
+Task<Response<EmptyResponse>> HistoryRemove(string channel);
 
 // Return active channels (with one or more active subscribers in it).
 Task<Response<ChannelsResponse>> Channels();
