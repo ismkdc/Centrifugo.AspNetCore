@@ -7,43 +7,43 @@ Sample project: https://github.com/ismkdc/Centrifugo.AspNetCore/tree/main/src/Ce
 Method list
 
 // Publish command allows publishing data into a channel.
-Task<Response<EmptyResponse>> Publish(Publish req);
+Task<Response<EmptyResponse>> Publish(PublishParams req);
 Task<Response<EmptyResponse>> Publish(object data, string channel);
 
 // Similar to publish but allows to send the same data into many channels.
-Task<Response<EmptyResponse>> Broadcast(Broadcast req);
+Task<Response<EmptyResponse>> Broadcast(BroadcastParams req);
 Task<Response<EmptyResponse>> Broadcast(object data, params string[] channels);
 
 // Allows subscribing user to a channel.
-Task<Response<EmptyResponse>> Subscribe(Subscribe req);
+Task<Response<EmptyResponse>> Subscribe(SubscribeParams req);
 Task<Response<EmptyResponse>> Subscribe(string user, string channel);
 
 // Allows unsubscribing user from a channel.
-Task<Response<EmptyResponse>> UnSubscribe(UnSubscribe req);
+Task<Response<EmptyResponse>> UnSubscribe(UnSubscribeParams req);
 Task<Response<EmptyResponse>> UnSubscribe(string user, string channel);
 
 // Allows disconnecting a user by ID.
-Task<Response<EmptyResponse>> Disconnect(Disconnect req);
+Task<Response<EmptyResponse>> Disconnect(DisconnectParams req);
 Task<Response<EmptyResponse>> Disconnect(string user);
 
 // Allows refreshing user connection (mostly useful when unidirectional transports are used).
-Task<Response<EmptyResponse>> Refresh(Refresh req);
+Task<Response<EmptyResponse>> Refresh(RefreshParams req);
 Task<Response<EmptyResponse>> Refresh(string user);
 
 // (Presence in channels is not enabled by default) Allows getting channel online presence information. 
-Task<Response<PresenceResponse>> Presence(Presence req);
+Task<Response<PresenceResponse>> Presence(PresenceParams req);
 Task<Response<PresenceResponse>> Presence(string channel);
 
 // (Presence in channels is not enabled by default) Allows getting short channel presence information - number of clients and number of unique users (based on user ID). 
-Task<Response<Presence_StatsResponse>> PresenceStats(Presence_Stats req);
+Task<Response<Presence_StatsResponse>> PresenceStats(PresenceStatsParams req);
 Task<Response<Presence_StatsResponse>> PresenceStats(string channel);
 
 // (History in channels is not enabled by default) Allows getting channel history information (list of last messages published into the channel)
-Task<Response<HistoryResponse>> History(History req);
+Task<Response<HistoryResponse>> History(HistoryParams req);
 Task<Response<HistoryResponse>> History(string channel);
 
 // (History in channels is not enabled by default) Allows removing publications in channel history. Current top stream position meta data kept untouched to avoid client disconnects due to insufficient state.
-Task<Response<EmptyResponse>> HistoryRemove(History_Remove req);
+Task<Response<EmptyResponse>> HistoryRemove(HistoryRemoveParams req);
 Task<Response<EmptyResponse>> HistoryRemove(string channel);
 
 // Return active channels (with one or more active subscribers in it).
