@@ -69,6 +69,10 @@ public void ConfigureServices(IServiceCollection services)
         ApiKey = "1c975adb-e03d-4ebe-9bfb-xxxxxxxxx"
     };
 
+    services.AddCentrifugoClient("http://localhost:8000/api", "1c975adb-e03d-4ebe-9bfb-xxxxxxxxx");
+    
+    // OR
+    
     services.AddCentrifugoClient(centrifugoConfig);
 }
 

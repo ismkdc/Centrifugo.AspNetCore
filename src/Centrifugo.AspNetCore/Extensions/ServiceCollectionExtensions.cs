@@ -26,5 +26,20 @@ namespace Centrifugo.AspNetCore.Extensions
 
             return services;
         }
+
+        public static IServiceCollection AddCentrifugoClient(this IServiceCollection services,
+            string url, string apiKey)
+        {
+            if (string.IsNullOrWhiteSpace(url) || string.IsNullOrWhiteSpace(apiKey))
+                throw new Exception("Url and ApiKey must be specified");
+
+            var options = new CentrifugoOptions
+            {
+                ApiKey = apiKey,
+                Url = url
+            };
+
+            return services.AddCentrifugoClient(options);
+        }
     }
 }
