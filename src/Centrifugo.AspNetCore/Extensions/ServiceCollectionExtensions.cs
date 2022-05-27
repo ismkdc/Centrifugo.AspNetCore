@@ -22,7 +22,7 @@ namespace Centrifugo.AspNetCore.Extensions
                     "Authorization", $"apikey {configureOptions.ApiKey}");
             });
 
-            services.AddScoped<ICentrifugoClient, CentrifugoClient>();
+            services.AddSingleton<ICentrifugoClient, CentrifugoClient>();
 
             return services;
         }

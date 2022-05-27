@@ -12,26 +12,26 @@ namespace Centrifugo.AspNetCore.Implementations
 {
     public class CentrifugoClient : ICentrifugoClient
     {
-        private readonly HttpClient _httpClient;
+        private readonly IHttpClientFactory _httpClientFactory;
 
         public CentrifugoClient(IHttpClientFactory httpClientFactory)
         {
-            _httpClient = httpClientFactory.CreateClient(ServiceCollectionExtensions.NamedClientName);
+            _httpClientFactory = httpClientFactory;
         }
 
-        public  Task<Response<EmptyResult>> Publish(PublishParams parameters)
+        public Task<Response<EmptyResult>> Publish(PublishParams parameters)
             => SendRequest<PublishParams, EmptyResult>(parameters);
 
-        public  Task<Response<EmptyResult>> Broadcast(BroadcastParams parameters)
+        public Task<Response<EmptyResult>> Broadcast(BroadcastParams parameters)
             => SendRequest<BroadcastParams, EmptyResult>(parameters);
 
-        public  Task<Response<EmptyResult>> Subscribe(SubscribeParams parameters)
+        public Task<Response<EmptyResult>> Subscribe(SubscribeParams parameters)
             => SendRequest<SubscribeParams, EmptyResult>(parameters);
 
-        public  Task<Response<EmptyResult>> UnSubscribe(UnSubscribeParams parameters)
+        public Task<Response<EmptyResult>> UnSubscribe(UnSubscribeParams parameters)
             => SendRequest<UnSubscribeParams, EmptyResult>(parameters);
 
-        public  Task<Response<EmptyResult>> Disconnect(DisconnectParams parameters)
+        public Task<Response<EmptyResult>> Disconnect(DisconnectParams parameters)
             => SendRequest<DisconnectParams, EmptyResult>(parameters);
 
         public Task<Response<EmptyResult>> Refresh(RefreshParams parameters)
@@ -58,8 +58,9 @@ namespace Centrifugo.AspNetCore.Implementations
         public async Task<Response<TRes>> SendRequest<TReq, TRes>(TReq req) where TReq : IRequestParams, new()
             where TRes : IResponseResult
         {
+            var httpClient = _httpClientFactory.CreateClient(ServiceCollectionExtensions.NamedClientName);
             var body = new Request<TReq>(req);
-            var result = await _httpClient.PostAsJsonAsync("", body);
+            var result = await httpClient.PostAsJsonAsync("", body);
 
             result.EnsureSuccessStatusCode();
 
