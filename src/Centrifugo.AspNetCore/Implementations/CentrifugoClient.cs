@@ -12,11 +12,11 @@ namespace Centrifugo.AspNetCore.Implementations
 {
     public class CentrifugoClient : ICentrifugoClient
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient _httpClient;
 
         public CentrifugoClient(IHttpClientFactory httpClientFactory)
         {
-            _httpClientFactory = httpClientFactory;
+            _httpClient = httpClientFactory.CreateClient(ServiceCollectionExtensions.NamedClientName);
         }
 
         public Task<Response<EmptyResult>> Publish(PublishParams parameters)
@@ -58,9 +58,8 @@ namespace Centrifugo.AspNetCore.Implementations
         public async Task<Response<TRes>> SendRequest<TReq, TRes>(TReq req) where TReq : IRequestParams, new()
             where TRes : IResponseResult
         {
-            var httpClient = _httpClientFactory.CreateClient(ServiceCollectionExtensions.NamedClientName);
             var body = new Request<TReq>(req);
-            var result = await httpClient.PostAsJsonAsync("", body);
+            var result = await _httpClient.PostAsJsonAsync("", body);
 
             result.EnsureSuccessStatusCode();
 
