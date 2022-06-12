@@ -1,7 +1,9 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Centrifugo.AspNetCore.Abstractions;
+using Centrifugo.AspNetCore.Configuration;
 using Centrifugo.AspNetCore.Extensions;
 using Centrifugo.AspNetCore.Models.Abstraction;
 using Centrifugo.AspNetCore.Models.Common;
@@ -17,6 +19,20 @@ namespace Centrifugo.AspNetCore.Implementations
         public CentrifugoClient(IHttpClientFactory httpClientFactory)
         {
             _httpClient = httpClientFactory.CreateClient(ServiceCollectionExtensions.NamedClientName);
+        }
+
+        public CentrifugoClient(CentrifugoOptions options, HttpClient httpClient = null)
+        {
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
+
+            httpClient ??= new HttpClient();
+
+            httpClient.BaseAddress = new Uri(options.Url);
+            httpClient.DefaultRequestHeaders.Add(
+                "Authorization", $"apikey {options.ApiKey}");
+
+            _httpClient = httpClient;
         }
 
         public Task<Response<EmptyResult>> Publish(PublishParams parameters)
