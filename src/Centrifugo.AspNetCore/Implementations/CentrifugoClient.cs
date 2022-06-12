@@ -75,7 +75,7 @@ namespace Centrifugo.AspNetCore.Implementations
             where TRes : IResponseResult
         {
             var body = new Request<TReq>(req);
-            var result = await _httpClient.PostAsJsonAsync("", body);
+            var result = await _httpClient.NewtonsoftPostAsJsonAsync("", body);
 
             result.EnsureSuccessStatusCode();
 
