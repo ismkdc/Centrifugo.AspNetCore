@@ -1,7 +1,7 @@
 Centrifugo.AspNetCore is a client for asp.net core 5.0 and 6.0 helps to consume Centrifugo real-time messaging Server
-API (https://centrifugal.dev/docs/server/server_api) \
-Nuget package: https://www.nuget.org/packages/Centrifugo.AspNetCore/ \
-Sample project: https://github.com/ismkdc/Centrifugo.AspNetCore/tree/main/src/Centrifugo.AspNetCore.Sample
+- API (https://centrifugal.dev/docs/server/server_api) \
+- Nuget package: https://www.nuget.org/packages/Centrifugo.AspNetCore/ \
+- Sample project: https://github.com/ismkdc/Centrifugo.AspNetCore/tree/main/src/Centrifugo.AspNetCore.Sample
 
 ```cs
 Method list
